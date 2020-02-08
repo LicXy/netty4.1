@@ -55,8 +55,12 @@ public final class EchoServer {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         //工作线程组, 接收到主线程发送过来的任务, 进行处理
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+        //EchoServerHandler:业务逻辑处理器
         final EchoServerHandler serverHandler = new EchoServerHandler();
         try {
+            /**
+             * ServerBootstrap的创建以及配置
+             */
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
              .channel(NioServerSocketChannel.class)   //配置server通道
@@ -75,7 +79,9 @@ public final class EchoServer {
                  }
              });
 
-            //绑定端口，并启动server，同时设置启动方式为同步
+            /**
+             * 绑定端口，并启动server，同时设置启动方式为同步  <===重点
+             */
             ChannelFuture f = b.bind(PORT).sync();
 
             // 等待服务端监听端口关闭
