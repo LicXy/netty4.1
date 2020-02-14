@@ -23,9 +23,5 @@ public class RpcDemoServer {
 		} catch (Exception e) {
  			e.printStackTrace();
 		}
-		
-		 
-		
 	}
-
 }
