@@ -150,6 +150,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
                     public void run() {
                         /**
                          * 添加ServerBootstrapAcceptor
+                         * ServerBootstrapAcceptor作用: 将ServerSocketChannel中接收到的请求注册到客户端的一个线程上, 用于检测该请求是否可操作
                          */
                         pipeline.addLast(new ServerBootstrapAcceptor(
                                 ch, currentChildGroup, currentChildHandler, currentChildOptions, currentChildAttrs));
@@ -212,6 +213,9 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             setAttributes(child, childAttrs);
 
             try {
+                /**
+                 * 将客户端的channel的注册到subreactor线程池中，注册失败或者抛出异常则关闭channel
+                 */
                 childGroup.register(child).addListener(new ChannelFutureListener() {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {

@@ -481,6 +481,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
                 if (ioRatio == 100) {
                     try {
                         if (strategy > 0) {
+                            /**
+                             * 处理轮询到的Key
+                             */
                             processSelectedKeys();
                         }
                     } finally {
@@ -575,6 +578,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         if (selectedKeys != null) {
             processSelectedKeysOptimized();
         } else {
+            /**
+             * selector.selectedKeys()获取当前selector已注册的Channel事件信息
+             */
             processSelectedKeysPlain(selector.selectedKeys());
         }
     }
@@ -604,7 +610,9 @@ public final class NioEventLoop extends SingleThreadEventLoop {
         if (selectedKeys.isEmpty()) {
             return;
         }
-
+        /**
+         * 迭代所有的SelectionKey, 遍历检测是否可操作
+         */
         Iterator<SelectionKey> i = selectedKeys.iterator();
         for (;;) {
             final SelectionKey k = i.next();

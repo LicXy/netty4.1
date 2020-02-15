@@ -321,7 +321,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         }
 
         /**
-         * 3. 注册
+         * 3. Selector注册
          * {@link MultithreadEventLoopGroup#register(io.netty.channel.Channel)}
          */
         ChannelFuture regFuture = config().group().register(channel);
