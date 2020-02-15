@@ -102,7 +102,7 @@ import java.util.NoSuchElementException;
  * For example, let us assume that we created the following pipeline:
  * <pre>
  * {@link ChannelPipeline} p = ...;
- * p.addLast("1", new InboundHandlerA());
+ *  * p.addLast("1", new InboundHandlerA());
  * p.addLast("2", new InboundHandlerB());
  * p.addLast("3", new OutboundHandlerA());
  * p.addLast("4", new OutboundHandlerB());

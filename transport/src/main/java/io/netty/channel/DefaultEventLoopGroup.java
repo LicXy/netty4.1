@@ -70,6 +70,9 @@ public class DefaultEventLoopGroup extends MultithreadEventLoopGroup {
 
     @Override
     protected EventLoop newChild(Executor executor, Object... args) throws Exception {
+        /**
+         * 生成DefaultEventLoop使用的是SingleThreadEventExecutor线程池
+         */
         return new DefaultEventLoop(this, executor);
     }
 }

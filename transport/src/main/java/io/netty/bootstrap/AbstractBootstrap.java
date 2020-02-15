@@ -257,12 +257,15 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
      */
     public ChannelFuture bind(SocketAddress localAddress) {
         validate();
+        /**
+         * 核心
+         */
         return doBind(ObjectUtil.checkNotNull(localAddress, "localAddress"));
     }
 
     private ChannelFuture doBind(final SocketAddress localAddress) {
         /**
-         * 初始化以及注册组件
+         * 1. 初始化以及注册组件
          */
         final ChannelFuture regFuture = initAndRegister();
         final Channel channel = regFuture.channel();
@@ -274,7 +277,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             // At this point we know that the registration was complete and successful.
             ChannelPromise promise = channel.newPromise();
             /**
-             * 地址端口绑定
+             * 2. 地址端口绑定
              */
             doBind0(regFuture, channel, localAddress, promise);
             return promise;
@@ -307,6 +310,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         try {
             /**
              * 1. 创建channel
+             * {@link ReflectiveChannelFactory#newChannel(){
              */
             channel = channelFactory.newChannel();
             /**
