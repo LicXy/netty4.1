@@ -16,16 +16,7 @@
 
 package io.netty.bootstrap;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPromise;
-import io.netty.channel.DefaultChannelPromise;
-import io.netty.channel.EventLoop;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.ReflectiveChannelFactory;
+import io.netty.channel.*;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -314,7 +305,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
              */
             channel = channelFactory.newChannel();
             /**
-             * 2. 初始化
+             * 2. 初始化channel
+             * {@link ServerBootstrap#init(io.netty.channel.Channel)}
              */
             init(channel);
         } catch (Throwable t) {
@@ -330,6 +322,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
 
         /**
          * 3. 注册
+         * {@link MultithreadEventLoopGroup#register(io.netty.channel.Channel)}
          */
         ChannelFuture regFuture = config().group().register(channel);
         if (regFuture.cause() != null) {

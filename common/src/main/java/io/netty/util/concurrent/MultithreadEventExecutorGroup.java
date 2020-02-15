@@ -116,7 +116,10 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
                 }
             }
         }
-
+        /**
+         * 创建选择器, 用于选择指定的任务线程执行任务
+         * {@link MultithreadEventExecutorGroup#next()}
+         */
         chooser = chooserFactory.newChooser(children);
 
         final FutureListener<Object> terminationListener = new FutureListener<Object>() {
@@ -127,7 +130,7 @@ public abstract class MultithreadEventExecutorGroup extends AbstractEventExecuto
                 }
             }
         };
-
+        //添加时间监听
         for (EventExecutor e: children) {
             e.terminationFuture().addListener(terminationListener);
         }
